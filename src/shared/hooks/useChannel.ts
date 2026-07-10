@@ -2,9 +2,43 @@ import { useState, useEffect } from 'react'
 import type { KickChannel } from '../../types'
 import { KickAPIService } from '../../services'
 
+function getNativeUsername(): string {
+  try {
+    // Attempt 1: Next.js data script (most reliable)
+    const script = document.getElementById('__NEXT_DATA__')
+    if (script && script.textContent) {
+      const data = JSON.parse(script.textContent)
+      const username = data?.props?.pageProps?.user?.username || 
+                       data?.props?.pageProps?.channel?.slug
+      if (username) return username
+    }
+  } catch (e) {
+    // Ignore parse errors
+  }
+
+  // Attempt 2: Fallback to reading the "Offline" or "Online" banner text in the preview
+  try {
+    const xpath = `//text()[contains(., 'çevrim dışı') or contains(., 'is offline') or contains(., 'çevrim içi') or contains(., 'is online')]/parent::*`
+    const snapshot = document.evaluate(xpath, document, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null)
+    if (snapshot.snapshotLength > 0) {
+      const text = snapshot.snapshotItem(0)?.textContent || ''
+      const match = text.match(/^(.+?)\s+(çevrim dışı|is offline|çevrim içi|is online)/i)
+      if (match && match[1]) {
+        return match[1].trim()
+      }
+    }
+  } catch (e) {
+    // Ignore errors
+  }
+
+  return ''
+}
+
 export function useChannel() {
   const [username, setUsername] = useState<string>(() => {
     try {
+      const nativeUser = getNativeUsername()
+      if (nativeUser) return nativeUser
       return localStorage.getItem('kick-chat-username') || ''
     } catch {
       return ''
