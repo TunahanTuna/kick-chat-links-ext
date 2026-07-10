@@ -4,9 +4,11 @@ import { LinksPanel, DismissedLinksPanel } from './features/links'
 export default function App() {
   const {
     username,
+    setUsername,
     channel,
     isLoading,
-    errorMessage
+    errorMessage,
+    fetchChannel
   } = useChannel()
 
   const { linkMap, dismissedMap, clearAllLinks, removeLink } = useChatAndLinksWithPersistence(channel)
@@ -26,17 +28,29 @@ export default function App() {
       {/* Main Content Area */}
       <main className="flex-1 overflow-y-auto px-4 pb-4 flex flex-col gap-4">
         {/* Connection Form */}
-        <div className="flex flex-col gap-3">
+        <form
+          className="flex flex-col gap-3"
+          onSubmit={(e) => {
+            e.preventDefault()
+            if (!isLoading && !channel) {
+              void fetchChannel()
+            }
+          }}
+        >
           <div className="flex flex-col gap-2">
             <label className="text-xs font-semibold text-[#8B9199]">BAĞLI KANAL</label>
             <input
-              className="w-full rounded bg-[#0B0E0F] text-[#8B9199] text-sm outline-none border border-[#24272C] px-3 py-2 cursor-not-allowed"
-              value={username || 'Tespit ediliyor...'}
-              disabled
+              className={`w-full rounded bg-[#0B0E0F] text-[#8B9199] text-sm outline-none px-3 py-2 transition-colors ${
+                isLoading || !!channel ? 'cursor-not-allowed opacity-80' : 'focus:ring-1 focus:ring-[#53FC18]'
+              }`}
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              placeholder="Yayıncı adını girin..."
+              disabled={isLoading || !!channel}
               spellCheck={false}
             />
           </div>
-        </div>
+        </form>
 
         {errorMessage && (
           <div className="rounded border border-red-500/50 bg-red-500/10 p-3">
