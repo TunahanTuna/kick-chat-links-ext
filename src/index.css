@@ -1,0 +1,191 @@
+@import "tailwindcss";
+
+:root {
+  --primary-color: #53FC18;
+  --primary-light: #53FC18;
+  --primary-dark: #3DE000;
+  --secondary-color: #24272C;
+  --background-gradient: #0B0E0F;
+  --card-shadow: none;
+  --card-shadow-hover: none;
+}
+
+/* Kick native theme variables (forced for both light and dark) */
+.light, .dark, :root {
+  --bg-primary: #0B0E0F;
+  --bg-secondary: #1B1E21;
+  --bg-tertiary: #24272C;
+  --bg-glass: #1B1E21;
+  --bg-card: #1B1E21;
+  --bg-hover: #24272C;
+  --bg-gradient: #1B1E21;
+  --bg-gradient-card: #1B1E21;
+  
+  --text-primary: #FFFFFF;
+  --text-secondary: #B2B2B2;
+  --text-tertiary: #808080;
+  --text-muted: #808080;
+  --text-accent: #53FC18;
+  --text-accent-hover: #3DE000;
+  --text-accent-secondary: #53FC18;
+  --text-accent-secondary-hover: #3DE000;
+  
+  --border-primary: #24272C;
+  --border-secondary: #24272C;
+  --border-tertiary: #24272C;
+  
+  --shadow-sm: none;
+  --shadow-md: none;
+  --shadow-lg: none;
+  --shadow-xl: none;
+}
+
+/* Safe area insets for mobile devices */
+.safe-area-inset {
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+}
+
+/* Responsive text sizes */
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 640px) {
+  html {
+    font-size: 14px; /* Keep Kick's slightly smaller font style */
+  }
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #24272C transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: #24272C;
+  border-radius: 3px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: #53FC18;
+}
+
+.glassmorphism {
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--border-primary);
+  border-radius: 4px;
+}
+
+/* Theme-aware utilities */
+.bg-theme-primary { background: var(--bg-primary); }
+.bg-theme-secondary { background: var(--bg-secondary); }
+.bg-theme-tertiary { background: var(--bg-tertiary); }
+.bg-theme-card { background: var(--bg-card); }
+.bg-theme-gradient { background: var(--bg-gradient); }
+.bg-theme-gradient-card { background: var(--bg-gradient-card); }
+
+.text-theme-primary { color: var(--text-primary); }
+.text-theme-secondary { color: var(--text-secondary); }
+.text-theme-tertiary { color: var(--text-tertiary); }
+.text-theme-muted { color: var(--text-muted); }
+.text-theme-accent { color: var(--text-accent); }
+
+.bg-gradient-theme-accent {
+  background: var(--text-accent);
+}
+
+.hover\:bg-gradient-theme-accent-hover:hover {
+  background: var(--text-accent-hover);
+}
+
+/* Custom gradient for group headers */
+.light .bg-gradient-group-header, .dark .bg-gradient-group-header {
+  background: var(--bg-tertiary);
+}
+
+.light .hover\:bg-gradient-group-header-hover:hover, .dark .hover\:bg-gradient-group-header-hover:hover {
+  background: #2D3138;
+}
+
+/* Group header text colors */
+.bg-gradient-group-header .text-white, .bg-gradient-group-header .text-white\/80 {
+  color: var(--text-primary) !important;
+}
+
+.focus\:ring-offset-theme-background:focus {
+  --tw-ring-offset-color: var(--bg-primary);
+}
+
+.border-theme-primary { border-color: var(--border-primary); }
+.border-theme-secondary { border-color: var(--border-secondary); }
+.divide-theme-primary > * + * { border-top-color: var(--border-primary); }
+
+.shadow-theme-sm { box-shadow: var(--shadow-sm); }
+.shadow-theme-md { box-shadow: var(--shadow-md); }
+.shadow-theme-lg { box-shadow: var(--shadow-lg); }
+.shadow-theme-xl { box-shadow: var(--shadow-xl); }
+
+.gradient-text {
+  color: var(--text-accent);
+}
+
+.message-bubble {
+  position: relative;
+}
+
+.message-bubble:hover {
+  background-color: var(--bg-hover);
+  border-radius: 4px;
+}
+
+.status-indicator {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-right: 6px;
+}
+
+.status-online {
+  background-color: var(--text-accent);
+}
+
+.status-offline {
+  background-color: var(--text-muted);
+}
+
+.link-card {
+  transform: translateY(0);
+}
+
+.animated-button:active {
+  transform: translateY(0);
+  transition-duration: 0.1s;
+}
+
+/* Loading States */
+.loading-shimmer {
+  background: #24272C;
+}
+
+.dark .loading-shimmer {
+  background: #24272C;
+}
+
+/* Kick Button Overrides */
+.rounded-xl, .rounded-2xl {
+  border-radius: 4px !important;
+}
+.rounded-lg {
+  border-radius: 4px !important;
+}

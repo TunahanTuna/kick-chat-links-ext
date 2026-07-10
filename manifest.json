@@ -1,0 +1,17 @@
+{
+  "manifest_version": 3,
+  "name": "Kick Chat Links Extension",
+  "version": "1.0.0",
+  "description": "Displays Kick chat links directly inside the streamer dashboard.",
+  "permissions": ["storage"],
+  "host_permissions": [
+    "*://*.kick.com/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["*://dashboard.kick.com/*", "*://kick.com/*"],
+      "js": ["src/content.tsx"],
+      "run_at": "document_idle"
+    }
+  ]
+}
