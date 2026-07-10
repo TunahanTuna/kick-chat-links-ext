@@ -13,13 +13,13 @@
 /* Kick native theme variables (forced for both light and dark) */
 .light, .dark, :root {
   --bg-primary: #0B0E0F;
-  --bg-secondary: #1B1E21;
+  --bg-secondary: #171A1C;
   --bg-tertiary: #24272C;
-  --bg-glass: #1B1E21;
-  --bg-card: #1B1E21;
+  --bg-glass: #171A1C;
+  --bg-card: #171A1C;
   --bg-hover: #24272C;
-  --bg-gradient: #1B1E21;
-  --bg-gradient-card: #1B1E21;
+  --bg-gradient: #171A1C;
+  --bg-gradient-card: #171A1C;
   
   --text-primary: #FFFFFF;
   --text-secondary: #B2B2B2;

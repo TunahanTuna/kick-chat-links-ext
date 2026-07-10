@@ -69,7 +69,7 @@ export function LinksPanel({ linkMap, onRemoveLink, onClearAllLinks }: LinksPane
           {links.map((link, index) => (
             <div
               key={link.url}
-              className="group link-card animate-slide-in-bottom rounded-lg sm:rounded-xl border border-theme-secondary bg-theme-secondary hover:bg-theme-tertiary p-2.5 sm:p-3 lg:p-4 transition-smooth hover:border-theme-accent interactive-scale"
+              className="group link-card animate-slide-in-bottom rounded-lg sm:rounded-xl border border-theme-secondary bg-theme-tertiary hover:bg-[#2D3138] p-2.5 sm:p-3 lg:p-4 transition-smooth hover:border-theme-accent interactive-scale"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
               <div className="flex items-center justify-between gap-2 sm:gap-3">
