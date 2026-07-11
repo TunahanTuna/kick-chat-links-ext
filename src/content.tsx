@@ -42,6 +42,9 @@ function findPanelByTitle(title: string): HTMLElement | null {
 }
 
 function mountExtension() {
+  // Only run in the dashboard
+  if (window.location.hostname !== 'dashboard.kick.com') return
+  
   if (document.getElementById(containerId)) return
 
   // 1. Try to find the "Sohbet" (Chat) panel
@@ -91,6 +94,13 @@ let timeoutId: number | null = null
 
 // Use MutationObserver with debouncing so we don't kill performance
 const observer = new MutationObserver(() => {
+  // If we navigated away from dashboard, ensure it's removed
+  if (window.location.hostname !== 'dashboard.kick.com') {
+    const el = document.getElementById(containerId)
+    if (el) el.remove()
+    return
+  }
+
   if (!document.getElementById(containerId)) {
     if (timeoutId) window.clearTimeout(timeoutId)
     timeoutId = window.setTimeout(() => {

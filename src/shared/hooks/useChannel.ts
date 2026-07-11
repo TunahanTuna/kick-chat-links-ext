@@ -18,13 +18,14 @@ function getNativeUsername(): string {
 
   // Attempt 2: Fallback to reading the "Offline" or "Online" banner text in the preview
   try {
-    const xpath = `//text()[contains(., 'çevrim dışı') or contains(., 'is offline') or contains(., 'çevrim içi') or contains(., 'is online')]/parent::*`
+    const xpath = `//*[not(self::script) and not(self::style)]/text()[contains(., 'çevrim dışı') or contains(., 'is offline') or contains(., 'çevrim içi') or contains(., 'is online')]/parent::*`
     const snapshot = document.evaluate(xpath, document, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null)
     if (snapshot.snapshotLength > 0) {
       const text = snapshot.snapshotItem(0)?.textContent || ''
       const match = text.match(/^(.+?)\s+(çevrim dışı|is offline|çevrim içi|is online)/i)
       if (match && match[1]) {
-        return match[1].trim()
+        const extracted = match[1].trim()
+        if (extracted.length < 50) return extracted
       }
     }
   } catch (e) {
@@ -38,8 +39,14 @@ export function useChannel() {
   const [username, setUsername] = useState<string>(() => {
     try {
       const nativeUser = getNativeUsername()
-      if (nativeUser) return nativeUser
-      return localStorage.getItem('kick-chat-username') || ''
+      if (nativeUser && nativeUser.length < 50) return nativeUser
+      
+      const stored = localStorage.getItem('kick-chat-username') || ''
+      if (stored.length < 50) return stored
+      
+      // If we reach here, local storage had a corrupt/huge value, let's remove it
+      localStorage.removeItem('kick-chat-username')
+      return ''
     } catch {
       return ''
     }
