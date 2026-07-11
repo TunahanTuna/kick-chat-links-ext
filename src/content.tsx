@@ -42,8 +42,8 @@ function findPanelByTitle(title: string): HTMLElement | null {
 }
 
 function mountExtension() {
-  // Only run in the dashboard
-  if (window.location.hostname !== 'dashboard.kick.com') return
+  // Only run in the dashboard /stream page
+  if (window.location.hostname !== 'dashboard.kick.com' || !window.location.pathname.startsWith('/stream')) return
   
   if (document.getElementById(containerId)) return
 
@@ -94,8 +94,8 @@ let timeoutId: number | null = null
 
 // Use MutationObserver with debouncing so we don't kill performance
 const observer = new MutationObserver(() => {
-  // If we navigated away from dashboard, ensure it's removed
-  if (window.location.hostname !== 'dashboard.kick.com') {
+  // If we navigated away from dashboard/stream, ensure it's removed
+  if (window.location.hostname !== 'dashboard.kick.com' || !window.location.pathname.startsWith('/stream')) {
     const el = document.getElementById(containerId)
     if (el) el.remove()
     return
