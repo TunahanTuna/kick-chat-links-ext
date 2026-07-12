@@ -26,6 +26,32 @@ export default function App() {
           </svg>
           <h2 className="text-[15px] font-semibold text-white">Kick Links</h2>
         </div>
+        
+        {window.location.protocol !== 'chrome-extension:' && (
+          <button
+            onClick={() => {
+              const width = 450;
+              const height = 700;
+              const left = (window.screen.width / 2) - (width / 2);
+              const top = (window.screen.height / 2) - (height / 2);
+              const channelParam = username ? `?channel=${username}` : '';
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              const baseUrl = (window as any).chrome?.runtime?.getURL('index.html') || 'index.html';
+              window.open(
+                baseUrl + channelParam,
+                'KickChatLinksPopout',
+                `width=${width},height=${height},left=${left},top=${top},toolbar=0,location=0,menubar=0`
+              );
+            }}
+            className="p-1.5 rounded hover:bg-[#3A3D3E] transition-colors text-[#8B9199] hover:text-white"
+            title="Popout"
+          >
+            <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M21 3v6a1 1 0 0 1-2 0V5.414l-8.293 8.293a1 1 0 1 1-1.414-1.414L17.586 4H15a1 1 0 0 1 0-2h6a1 1 0 0 1 1 1z" />
+              <path d="M19 14a1 1 0 0 1 2 0v5a3 3 0 0 1-3 3H5a3 3 0 0 1-3-3V5a3 3 0 0 1 3-3h5a1 1 0 0 1 0 2H5a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h13a1 1 0 0 0 1-1v-5z" />
+            </svg>
+          </button>
+        )}
       </header>
 
       {/* Main Content Area */}

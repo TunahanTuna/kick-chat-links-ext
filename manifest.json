@@ -21,6 +21,12 @@
       "run_at": "document_idle"
     }
   ],
+  "web_accessible_resources": [
+    {
+      "resources": ["index.html", "assets/*"],
+      "matches": ["*://dashboard.kick.com/*", "*://kick.com/*"]
+    }
+  ],
   "icons": {
     "16": "icon.png",
     "32": "icon.png",

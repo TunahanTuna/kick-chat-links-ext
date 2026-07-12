@@ -57,6 +57,13 @@ html {
   }
 }
 
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-primary);
+}
+
 * {
   scrollbar-width: thin;
   scrollbar-color: #24272C transparent;

@@ -9,6 +9,7 @@ export default defineConfig({
     tailwindcss(),
     webExtension({
       manifest: 'manifest.json',
+      additionalInputs: ['index.html'],
       // skipManifestValidation helps with some custom properties
       skipManifestValidation: true,
     }),

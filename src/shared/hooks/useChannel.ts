@@ -38,6 +38,10 @@ function getNativeUsername(): string {
 export function useChannel() {
   const [username, setUsername] = useState<string>(() => {
     try {
+      const urlParams = new URLSearchParams(window.location.search)
+      const urlChannel = urlParams.get('channel')
+      if (urlChannel) return urlChannel
+
       const nativeUser = getNativeUsername()
       if (nativeUser && nativeUser.length < 50) return nativeUser
       
